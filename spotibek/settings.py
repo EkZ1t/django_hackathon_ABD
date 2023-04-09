@@ -42,10 +42,11 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
     
     #my_apps
     'applications.user',
-    
+    'applications.contant',
 ]
 
 MIDDLEWARE = [
