@@ -5,7 +5,18 @@ from rest_framework.response import Response
 from .serializers import TrackSerializer, AlbumSerializer, GenreSerializer
 from .models import Track, Album, Genre, Like
 
+from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
+
 # Create your views here.
+
+# функция ответственная за аудиоплеер
+def index(request):
+    paginator= Paginator(Track.objects.all(),1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context={"page_obj":page_obj}
+    return render(request,"index.html",context)
 
 class TrackViewSet(ModelViewSet):
     queryset = Track.objects.all()

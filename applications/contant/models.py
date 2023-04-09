@@ -7,7 +7,6 @@ class Album(models.Model):
     title = models.CharField(max_length=50)
     artist = models.CharField(max_length=50)
     description = models.TextField()
-    image = models.ImageField(upload_to='images/album_images', null=True, blank=True)
     release_date = models.DateTimeField()
     uploaded_at = models.DateTimeField(auto_now_add=True)
     genre = models.ManyToManyField("Genre", related_name='albums')
@@ -24,10 +23,13 @@ class Track(models.Model):
     title = models.CharField(max_length=100)
     artist = models.CharField(max_length=100)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='tracks', blank=True, null=True)
-    duration = models.PositiveIntegerField(help_text='Duration in seconds')
-    release_date = models.DateField()
     uploaded_at = models.DateTimeField(auto_now_add=True)
     genre = models.ManyToManyField("Genre", related_name='tracks')
+    
+    audio_file = models.FileField(blank=True,null=True)
+    audio_link = models.CharField(max_length=200,blank=True,null=True)
+    duration=models.CharField(max_length=20)
+    paginate_by = 2
     
     class Meta:
         verbose_name = 'Трек'
